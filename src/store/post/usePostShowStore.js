@@ -20,6 +20,15 @@ export const usePostShowStore = defineStore('postShowStore', ()=>{
       throw error;
     }
   }
+
+  const deletePost = async (id)=>{
+    try {
+      const url = `/api/posts/${id}`;
+      await myAxios.delete(url);
+    } catch (error) {
+      throw error;
+    }
+  }
   const clearPostShow = ()=>{
     post.value = null;
   }
@@ -28,5 +37,6 @@ export const usePostShowStore = defineStore('postShowStore', ()=>{
     post,
     getPost,
     clearPostShow,
+    deletePost,
   }
 });
