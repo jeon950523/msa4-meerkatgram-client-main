@@ -5,8 +5,9 @@ import { usePostCreateStore } from '../../store/post/usePostCreateStore.js';
 import { useFileStore } from '../../store/file/useFileStore.js';
 import { useMyErrorStore } from '../../store/error/useMyErrorStore.js';
 import { reactive, ref } from 'vue';
+import { useAuthStore } from '../../store/auth/useAuthStore.js';
 
-
+const authStore = useAuthStore();
 const postCreateStore = usePostCreateStore();
 const router = useRouter();
 const fileStore = useFileStore();
@@ -42,6 +43,7 @@ const handleSubmit = async ()=>{
   }
   try {
     await postCreateStore.createPost(postData);
+    authStore.increasePostCount();
     alert('게시글이 작성되었습니다.');
     router.replace('/posts');
   } catch (error) {
@@ -94,7 +96,7 @@ const handleSubmit = async ()=>{
   border-radius: 10px;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: cover;
+  background-size: contain;
 }
 
 .empty-preview {

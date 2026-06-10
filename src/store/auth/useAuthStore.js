@@ -92,7 +92,19 @@ export const useAuthStore = defineStore('authStore',()=>{
       
     }
   }
-
+const increasePostCount = ()=>{
+  if(!userInfo.value){
+    return;
+  }
+  userInfo.value.countPosts +=1;
+}
+const decreasePostCount = ()=>{
+  if(!userInfo.value){
+    return;
+  }
+  if(userInfo.value.countPosts > 0){
+    userInfo.value.countPosts -=1;}
+}
   return{
     // State
     isLoggedIn,
@@ -107,6 +119,8 @@ export const useAuthStore = defineStore('authStore',()=>{
     logout,
     registration,
     changeUserEmail,
+    increasePostCount,
+    decreasePostCount,
   }
 
 });

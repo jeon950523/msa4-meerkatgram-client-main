@@ -33,6 +33,7 @@ onBeforeUnmount(postShowStore.clearPostShow);
 const handleDelete = async ()=>{
   try {
     await postShowStore.deletePost(route.params.id);
+    authStore.decreasePostCount();
     alert('게시글이 삭제 되었습니다.');
     router.replace('/posts');
   } catch (error) {
@@ -95,7 +96,7 @@ const handleDelete = async ()=>{
   padding-top: 100%;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: cover;
+  background-size: contain;
   border-radius: 10px;
 }
 .delete-icon{
