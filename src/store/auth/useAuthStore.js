@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import myAxios from "../../api/myAxios";
 import { useMyErrorStore } from "../error/useMyErrorStore";
+import { email } from "../../api/util/validator/rule/userRule";
 
 
 
@@ -79,7 +80,31 @@ export const useAuthStore = defineStore('authStore',()=>{
       throw error;
     }
   }
-
+  const changeUserEmail = async (email)=>{
+    try {
+      const url = '/api/users/email'
+      const res = await myAxios.patch(url,{email});
+      const changedEmail = res.data.data;
+      userInfo.value.email = changedEmail;
+      return changedEmail;
+    } catch (error) {
+      throw error;
+      
+    }
+  }
+const increasePostCount = ()=>{
+  if(!userInfo.value){
+    return;
+  }
+  userInfo.value.countPosts +=1;
+}
+const decreasePostCount = ()=>{
+  if(!userInfo.value){
+    return;
+  }
+  if(userInfo.value.countPosts > 0){
+    userInfo.value.countPosts -=1;}
+}
   return{
     // State
     isLoggedIn,
@@ -93,6 +118,9 @@ export const useAuthStore = defineStore('authStore',()=>{
     reissue,
     logout,
     registration,
+    changeUserEmail,
+    increasePostCount,
+    decreasePostCount,
   }
 
 });

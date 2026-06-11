@@ -5,6 +5,10 @@ import { useAuthStore } from "../store/auth/useAuthStore.js";
 import PostShow from "../pages/posts/PostShow.vue";
 import Registration from "../pages/auth/Registration.vue";
 import MyError from "../pages/error/MyError.vue";
+import PostCreate from "../pages/posts/PostCreate.vue";
+import PostMyIndex from "../pages/posts/PostMyIndex.vue";
+import EditUserInfo from "../pages/auth/EditUserInfo.vue";
+
 
 const setMeta = (isAuthenticated, isGuestOnly)=>{
   return {
@@ -23,6 +27,11 @@ const routes = [
     path:'/posts/:id',
     component: PostShow,
     meta: setMeta(true, false),
+  },
+  {
+    path:'/users/edit',
+    component:EditUserInfo,
+    meta:setMeta(true,false),
   },
   // 인증 관련
   {
@@ -43,6 +52,16 @@ const routes = [
     , component: PostIndex,
     meta: setMeta(false,false),
 
+  },
+  {
+    path:'/posts/my',
+    component : PostMyIndex,
+    meta:setMeta(true,false),
+  },
+  {
+    path:'/posts/create',
+    component: PostCreate,
+    meta:setMeta(true,false),
   },
   //에러 관련
   {
